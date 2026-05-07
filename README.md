@@ -1,6 +1,6 @@
 # 🛡️ SnARPof: Advanced Network Auditor
 
-**SnARPof** is a comprehensive network auditing and Man-in-the-Middle (MitM) testing suite built with a modern Python GUI. It allows security researchers to intercept, analyze, and manipulate network traffic in real-time using ARP spoofing and mitmproxy integration.
+**SnARPof** is a comprehensive network auditing and Man-in-the-Middle (MitM) testing suite built with a modern Python GUI for Windows environment. It allows security researchers to intercept, analyze, and manipulate network traffic in real-time using ARP spoofing and mitmproxy integration.
 
 ---
 
@@ -28,6 +28,7 @@
 ## 🚀 Installation & Setup
 
 ### Prerequisites
+* **Windows 10 or 11**
 * **Python 3.10** or higher.
 * **[Npcap](https://npcap.com/):** Required for packet sniffing on Windows.
 * **[Mitmproxy](https://mitmproxy.org/):** Required for traffic manipulation.
