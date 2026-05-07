@@ -1,0 +1,6 @@
+scapy
+Pillow
+customtkinter
+pywifi
+nuitka
+zstandard
