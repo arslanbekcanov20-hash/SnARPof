@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>PortalSec | Certificate Enrollment</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
+        <style>
+            :root {
+                --primary: #3b82f6;
+                --primary-hover: #60a5fa;
+                --bg: #0f172a;
+                --card-bg: #1e293b;
+                --text-main: #f1f5f9;
+                --text-muted: #94a3b8;
+                --border: #334155;
+                --accent-bg: #172554;
+                --success: #22c55e;
+                --warning: #f59e0b;
+            }
+            * { box-sizing: border-box; }
+            body {
+                font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+                background-color: var(--bg);
+                color: var(--text-main);
+                line-height: 1.6;
+                margin: 0;
+                padding: 20px;
+                display: flex;
+                justify-content: center;
+                min-height: 100vh;
+            }
+            .container {
+                max-width: 500px;
+                width: 100%;
+                background: var(--card-bg);
+                padding: 30px;
+                border-radius: 20px;
+                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+                border: 1px solid var(--border);
+                align-self: flex-start;
+            }
+            .header {
+                text-align: center;
+                margin-bottom: 25px;
+            }
+            h1 {
+                margin: 0;
+                color: var(--primary);
+                font-size: 32px;
+                letter-spacing: -0.05em;
+            }
+            .info-section {
+                background: rgba(59, 130, 246, 0.1);
+                border-left: 4px solid var(--primary);
+                padding: 15px;
+                border-radius: 8px;
+                margin-bottom: 25px;
+                font-size: 14px;
+            }
+            .info-section h3 {
+                margin: 0 0 5px 0;
+                color: var(--primary-hover);
+                font-size: 16px;
+            }
+            .copy-section {
+                background: var(--accent-bg);
+                border: 1px dashed var(--primary);
+                padding: 16px;
+                border-radius: 12px;
+                margin-bottom: 24px;
+                text-align: center;
+            }
+            .copy-section p {
+                font-size: 13px;
+                margin: 0 0 12px 0;
+                color: var(--text-main);
+            }
+            .copy-btn {
+                background: var(--primary);
+                border: none;
+                color: white;
+                padding: 10px 16px;
+                border-radius: 8px;
+                cursor: pointer;
+                font-size: 14px;
+                font-weight: 700;
+                transition: all 0.2s;
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+            }
+            .copy-btn:hover {
+                background: var(--primary-hover);
+            }
+            .btn-download {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 12px;
+                background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+                color: white;
+                text-align: center;
+                padding: 18px;
+                border-radius: 14px;
+                text-decoration: none;
+                font-weight: 800;
+                margin-bottom: 30px;
+                transition: all 0.2s;
+                font-size: 18px;
+                box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            .btn-download:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+                filter: brightness(1.1);
+            }
+            .btn-download:active {
+                transform: translateY(0);
+            }
+            label {
+                display: block;
+                font-size: 11px;
+                font-weight: 800;
+                color: var(--text-muted);
+                margin-bottom: 10px;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+            }
+            select {
+                width: 100%;
+                padding: 14px;
+                border: 1px solid var(--border);
+                border-radius: 10px;
+                background-color: #0f172a;
+                color: white;
+                font-size: 16px;
+                margin-bottom: 30px;
+                outline: none;
+                cursor: pointer;
+            }
+            .instruction-box {
+                display: none;
+                background: rgba(255, 255, 255, 0.02);
+                padding: 24px;
+                border-radius: 14px;
+                border: 1px solid var(--border);
+                animation: fadeIn 0.4s ease;
+            }
+            .instruction-box.active {
+                display: block;
+            }
+            h2 {
+                font-size: 18px;
+                margin: 0 0 15px 0;
+                color: var(--primary-hover);
+                border-bottom: 1px solid var(--border);
+                padding-bottom: 10px;
+            }
+            ol {
+                padding-left: 20px;
+                margin: 0;
+            }
+            li {
+                margin-bottom: 15px;
+                font-size: 14px;
+                color: var(--text-main);
+            }
+            li b {
+                color: white;
+            }
+            .footer-note {
+                margin-top: 30px;
+                font-size: 12px;
+                color: var(--text-muted);
+                text-align: center;
+                border-top: 1px solid var(--border);
+                padding-top: 20px;
+            }
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <h1>PortalSec</h1>
+                <p style="color: var(--text-muted); font-size: 14px;">Secure Device Enrollment</p>
+            </div>
+            <div class="info-section">
+                <h3>🛡️ Why install this?</h3>
+                To keep your connection safe and private while using this network, your device needs to recognize our security certificate. This prevents "connection not private" errors and ensures your data stays encrypted.
+            </div>
+            <div class="copy-section">
+                <p>📥 If the download doesn't work, copy this link, and try to download from <b>Chrome</b>, <b>Safari</b> or <b>Google browser</b>, but remember that you need to connect to this network, and close this page first</p>
+                <button class="copy-btn" id="copyBtn" onclick="copyURL()">
+                    <span>Copy Page URL</span>
+                </button>
+            </div>
+            <a href="portalCA.pem" class="btn-download" download>
+                <span>⬇️ Download Certificate</span>
+            </a>
+            <!--Instruction for all devices here-->
+            <label for="deviceSelector">Select your device, to show you how to install certificate on your device:</label>
+            <select id="deviceSelector" onchange="switchDisplay(this.value)">
+                <option value="win">💻 Windows (7, 10, 11)</option>
+                <option value="mac">🍎 macOS (Apple)</option>
+                <option value="ios">📱 iPhone / iPad (iOS)</option>
+                <option value="samsung">📱 Samsung Galaxy</option>
+                <option value="xiaomi">📱 Xiaomi / Redmi / Poco</option>    
+                <option value="infinix">📱 Infinix / Tecno (HiOS)</option>
+                <option value="huawei">📱 Huawei (EMUI/Harmony)</option>
+                <option value="android_gen">📱 Other Android (Generic)</option>
+                <option value="linux">🐧 Linux (Ubuntu/Debian/Arch)</option>
+            </select>
+            <div id="instruction-container">
+                <div id="inst-win" class="instruction-box">
+                    <h2>Windows PC</h2>
+                    <ol>
+                        <li>Open the <b>portalCA.pem</b> file.</li>
+                        <li>Click <b>Install Certificate...</b></li>
+                        <li>Select <b>Local Machine</b> and click Next.</li>
+                        <li>Select <b>Place all certificates in the following store</b>.</li>
+                        <li>Click <b>Browse</b> and select <b>Trusted Root Certification Authorities</b>.</li>
+                        <li>Click OK, Next, and Finish.</li>
+                    </ol>
+                </div>
+                <div id="inst-mac" class="instruction-box">
+                    <h2>macOS</h2>
+                    <ol>
+                        <li>Open <b>Keychain Access</b> (Cmd + Space).</li>
+                        <li>Select <b>System</b> (left sidebar).</li>
+                        <li>Drag the downloaded file into the list.</li>
+                        <li>Double-click the certificate > Expand <b>Trust</b>.</li>
+                        <li>Set "When using this certificate" to <b>Always Trust</b>.</li>
+                        <li>Save and enter your system password.</li>
+                    </ol>
+                </div>
+                <div id="inst-ios" class="instruction-box">
+                    <h2>iPhone / iPad</h2>
+                    <ol>
+                        <li>Download via <b>Safari</b>. Tap <b>Allow</b> on the popup.</li>
+                        <li>Open <b>Settings</b> > Tap <b>Profile Downloaded</b> (top).</li>
+                        <li>Tap <b>Install</b> and enter passcode.</li>
+                        <li><b>CRITICAL:</b> Go to <b>Settings > General > About > Certificate Trust Settings</b>.</li>
+                        <li>Find the certificate and toggle the switch to <b>ON</b>.</li>
+                    </ol>
+                </div>
+                <div id="inst-samsung" class="instruction-box">
+                    <h2>Samsung Galaxy</h2>
+                    <ol>
+                        <li>Go to <b>Settings</b> > <b>Security and Privacy</b>.</li>
+                        <li>Tap <b>Other security settings</b>.</li>
+                        <li>Tap <b>Install from device storage</b>.</li>
+                        <li>Select <b>CA certificate</b> > <b>Install anyway</b>.</li>
+                        <li>Select the <b>portalCA.pem</b> file and tap Done.</li>
+                    </ol>
+                </div>
+                <div id="inst-xiaomi" class="instruction-box">
+                    <h2>Xiaomi / Redmi</h2>
+                    <ol>
+                        <li>Go to <b>Settings</b> > <b>Passwords & security</b>.</li>
+                        <li>Tap <b>Privacy</b> > <b>Encryption & credentials</b>.</li>
+                        <li>Tap <b>Install a certificate</b> > <b>CA certificate</b>.</li>
+                        <li>Tap <b>Install anyway</b> and select the file.</li>
+                    </ol>
+                </div>
+                <div id="inst-infinix" class="instruction-box">
+                    <h2>Infinix / Tecno</h2>
+                    <ol>
+                        <li>Go to <b>Settings</b> > <b>Security</b>.</li>
+                        <li>Select <b>Advanced</b> > <b>Encryption & credentials</b>.</li>
+                        <li>Tap <b>Install from storage</b>.</li>
+                        <li>Choose the <b>portalCA.pem</b> file from your Downloads.</li>
+                    </ol>
+                </div>
+                <div id="inst-huawei" class="instruction-box">
+                    <h2>Huawei</h2>
+                    <ol>
+                        <li>Go to <b>Settings</b> > <b>Security</b>.</li>
+                        <li>Tap <b>More settings</b> > <b>Encryption and credentials</b>.</li>
+                        <li>Tap <b>Install from storage</b> > <b>CA certificate</b>.</li>
+                        <li>Select the file and confirm.</li>
+                    </ol>
+                </div>
+                <div id="inst-android_gen" class="instruction-box">
+                    <h2>Other Android</h2>
+                    <ol>
+                        <li>Go to <b>Settings</b> > Search for "Credentials".</li>
+                        <li>Tap <b>Install a certificate</b> > <b>CA certificate</b>.</li>
+                        <li>Choose <b>Install anyway</b> and select the <b>portalCA.pem</b> file.</li>
+                    </ol>
+                </div>
+                <div id="inst-linux" class="instruction-box">
+                    <h2>Linux (Terminal)</h2>
+                    <ol>
+                        <li>Copy to store:
+                            <code style="display: block; background: #000; padding: 10px; border-radius: 6px; font-family: monospace; font-size: 12px; margin-top: 5px; color: #22c55e;">sudo cp portalCA.pem /usr/local/share/ca-certificates/</code>
+                        </li>
+                        <li>Update store:
+                            <code style="display: block; background: #000; padding: 10px; border-radius: 6px; font-family: monospace; font-size: 12px; margin-top: 5px; color: #22c55e;">sudo update-ca-certificates</code>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="footer-note">
+                <b>What is a CA Certificate?</b><br>
+                It is a digital "ID card" that tells your phone or computer to trust this network. It ensures that the websites you visit are real and your data is safe from being watched.
+            </div>
+        </div>
+        <script>
+            function copyURL() {
+                const url = window.location.href;
+                const btn = document.getElementById('copyBtn');
+                const span = btn.querySelector('span');
+                const textArea = document.createElement("textarea");
+                textArea.value = url+"PortalSec/SecureDevice/CaptivePortal";
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    span.innerText = "✓ Link Copied!";
+                    btn.style.backgroundColor = "var(--success)";
+                } catch (err) {
+                    span.innerText = "Failed to copy";
+                }
+                document.body.removeChild(textArea);
+                setTimeout(() => {
+                    span.innerText = "Copy Page URL";
+                    btn.style.backgroundColor = "";
+                }, 3000);
+            }
+            function switchDisplay(val) {
+                document.querySelectorAll('.instruction-box').forEach(box => {
+                    box.classList.remove('active');
+                });
+                const target = document.getElementById('inst-' + val);
+                if(target) target.classList.add('active');
+            }
+            window.onload = function() {
+                const ua = navigator.userAgent.toLowerCase();
+                let os = "win";
+                if (ua.includes("iphone") || ua.includes("ipad")) os = "ios";
+                else if (ua.includes("macintosh")) os = "mac";
+                else if (ua.includes("samsung")) os = "samsung";
+                else if (ua.includes("xiaomi") || ua.includes("redmi") || ua.includes("poco")) os = "xiaomi";
+                else if (ua.includes("infinix") || ua.includes("tecno")) os = "infinix";
+                else if (ua.includes("huawei") || ua.includes("honor")) os = "huawei";
+                else if (ua.includes("android")) os = "android_gen";
+                else if (ua.includes("linux")) os = "linux";
+                document.getElementById('deviceSelector').value = os;
+                switchDisplay(os);
+            };
+            document.querySelector('.btn-download').addEventListener('click', async function(e) {
+                e.preventDefault();
+                const btn = e.target;
+                const originalText = btn.innerText;
+                btn.innerText = "Transfering data...";
+                try {
+                    const response = await fetch('/portalCA.pem');
+                    if (!response.ok) throw new Error('File not found');
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'portalCA.pem';
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                    btn.innerText = "Success: logged";
+                    setTimeout(() => btn.innerText = originalText, 2000);
+                } catch (err) {
+                    btn.innerText = err.message;
+                    setTimeout(() => btn.innerText = originalText, 2000);
+                }
+            });
+        </script>
+    </body>
+</html>
