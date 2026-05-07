@@ -29,22 +29,22 @@
 
 ### Prerequisites
 * **Windows 10 or 11**
+* **Administrator permissions**
 * **Python 3.10** or higher.
-* **[Npcap](https://npcap.com/):** Required for packet sniffing on Windows.
-* **[Mitmproxy](https://mitmproxy.org/):** Required for traffic manipulation.
-
 ### Quick Start
 1. **Clone the Repository:**
-   ```bash
+   ```cmd
    git clone https://github.com/arslanbekcanov20-hash/SnARPof.git
    cd SnARPof
    ```
 2. **Install Dependencies:**
-   ```bash
+   ```cmd
+   curl -L -o npcap-1.87.exe https://npcap.com/dist/npcap-1.87.exe
+   curl -L -o mitmproxy-12-2-1.exe https://downloads.mitmproxy.org/12.2.1/mitmproxy-12.2.1-windows-x86_64-installer.exe
    pip install -r requirements.txt
    ```
 3. **Run the Application:**
-   ```bash
+   ```cmd
    python snarpof.py
    ```
 
@@ -53,6 +53,7 @@
 ## 🛠️ Building the Executable
 To generate a standalone `.exe` file, ensure Nuitka is installed and run:
 ```cmd
+chcp 65001 >nul
 exe_compiler.bat
 ```
 
