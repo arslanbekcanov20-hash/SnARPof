@@ -28,8 +28,7 @@
 ## 🚀 Installation & Setup
 
 ### Prerequisites
-* **Windows 10 or 11**
-* **Administrator permissions**
+* **Windows 10 or 11** with **Administrator permissions**
 * **Python 3.10** or higher.
 ### Quick Start
 1. **Clone the Repository:**
