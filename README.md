@@ -50,7 +50,7 @@
 ---
 
 ## 🛠️ Building the Executable
-To generate a standalone `.exe` file, ensure Nuitka is installed and run:
+To generate a standalone `.exe` file, run:
 ```cmd
 chcp 65001 >nul
 exe_compiler.bat
