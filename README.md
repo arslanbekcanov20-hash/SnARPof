@@ -1,27 +1,29 @@
 # 🛡️ SnARPof: Advanced Network Auditor
 
-**SnARPof** is a comprehensive network auditing and Man-in-the-Middle (MitM) testing suite built with a modern Python GUI for Windows environment. It allows security researchers to intercept, analyze, and manipulate network traffic in real-time using ARP spoofing and mitmproxy integration.
+**SnARPof** is a comprehensive network auditing and Man-in-the-Middle (MitM) testing suite built with a modern Python GUI for Windows environment. It allows security researchers to intercept, analyze, and manipulate network traffic in real-time.
 
 ---
 
 ## ✨ Key Features
 
-### 🖥️ GUI-Driven Interception
-* **Modern Interface:** Built with `customtkinter` to manage network interfaces and monitor traffic effortlessly.
-* **Live Interface Selection:** Auto-detects active network adapters for instant deployment.
+### 🌐 Network Traffic Manipulation
+* **DNSpoof (DNS Poisoning):** Intercepts DNS queries and redirects targets to authorized IP addresses by manipulating resolution logic.
+* **URLresp (URL Response Control):** Monitors protocol-level requests to deliver customized responses, block access, or perform redirection for specific URL patterns.
+* **HTMLinj (HTML/JS Injection):** Enables the insertion of custom HTML or JavaScript code into the <body> of web responses to execute client-side scripts.
+* **HTMLrep (Content Replacer):** A real-time content modification engine that searches for specific text or images within a website’s code and replaces them before delivery.
 
-### 🔍 Live Packet Analysis
-* **Real-time Logging:** A packet tree that logs IP versions, protocols, header lengths, and payloads.
-* **Sensitive Data Tagging:** Automatically scans payloads for keywords (e.g., "login", "password", "auth") and highlights them.
+### 🕵️ Advanced Monitoring & Auditing
+* **BrowserSpy (Visual & Input Tracking):** * **Visual Monitoring:** Captures high-fidelity visual states of the target's web browser using remote rendering.
+    * **Input Telemetry:** Tracks and logs interactive inputs including keystrokes (**Keylogging**) and **mouse clicks** for behavior analysis.
+* **SNI Inspection:** Identifies target domains during the TLS handshake, allowing for site identification even during encrypted HTTPS sessions.
 
-### 🎭 Traffic Manipulation (Mitmproxy Engine)
-* **DNS Spoofing:** Redirect specific domains to custom IP addresses.
-* **URL Responding:** Intercept specific URLs and return custom responses.
-* **HTML Injection:** Inject custom scripts or replace HTML content on-the-fly in unencrypted traffic.
+### 📶 Wireless Security
+* **WIFIbrute (Credential Auditing):** An active brute-force module designed to audit the strength of WPA/WPA2 passwords through automated credential testing.
 
-### 👁️ Advanced Audit Tools
-* **BrowserSpy:** Leverage `html2canvas.min.js` to gain a live visual preview of a target's browser DOM.
-* **Certificate Portal:** A built-in portal to facilitate the installation of root CA certificates for HTTPS inspection testing.
+### 📊 Forensics & Data Analysis
+* **Detailed Protocol Analysis:** Provides real-time data on IP versions, protocols (TCP/UDP/ICMP), and header specifications via a multi-threaded GUI.
+* **Industry-Standard File Support:** Full compatibility for opening, analyzing, and saving traffic in **.cap, .pcap, and .pcapng** formats.
+* **Granular Filtering:** Advanced search system allowing users to filter live traffic by IP, port, protocol, or specific keywords in the data payload.
 
 ---
 
